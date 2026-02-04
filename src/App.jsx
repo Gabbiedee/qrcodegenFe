@@ -1,7 +1,7 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Home from './pages/Home';
-import QRGenerator from './pages/GenerateQrcODE.JSX';
+import QRGenerator from './pages/GenerateQrcode.jsx';
 import QRReader from './pages/QrVerififier';
 import ExportAttendance from './pages/ExportAttendance';
 import DeleteAttendee from './pages/DeleteAttendee';
