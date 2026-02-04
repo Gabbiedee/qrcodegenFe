@@ -1,0 +1,252 @@
+/* Base styles */
+.container {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+
+.card {
+  background: white;
+  border-radius: 16px;
+  padding: 40px;
+  max-width: 600px;
+  width: 100%;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+  transition: padding 0.3s, max-width 0.3s;
+}
+
+.title {
+  font-size: 32px;
+  color: #333;
+  margin-bottom: 8px;
+  text-align: center;
+}
+
+.subtitle {
+  font-size: 16px;
+  color: #666;
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.formGroup {
+  display: flex;
+  flex-direction: column;
+}
+
+.label {
+  font-size: 14px;
+  font-weight: 600;
+  color: #555;
+  margin-bottom: 8px;
+}
+
+.required {
+  color: #d32f2f;
+}
+
+.input {
+  padding: 12px 16px;
+  font-size: 15px;
+  border: 2px solid #e0e0e0;
+  border-radius: 8px;
+  outline: none;
+  transition: border-color 0.3s;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.button {
+  padding: 14px;
+  font-size: 16px;
+  font-weight: 600;
+  color: white;
+  background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+}
+
+.buttonDisabled {
+  background: #ccc;
+  cursor: not-allowed;
+}
+
+.error {
+  background: #ffebee;
+  color: #c62828;
+  padding: 12px 16px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  border-left: 4px solid #f44336;
+}
+
+.result {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.successBadge {
+  background: #e8f5e9;
+  color: #1e3a8a; /* deep blue for success checkmark */
+  padding: 16px;
+  border-radius: 8px;
+  text-align: center;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.checkmark {
+  font-size: 24px;
+  margin-right: 8px;
+}
+
+.qrContainer {
+  background: #f5f5f5;
+  padding: 20px;
+  border-radius: 12px;
+  text-align: center;
+}
+
+.qrImage {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+}
+
+.details {
+  background: #fff3e0;
+  padding: 20px;
+  border-radius: 8px;
+}
+
+.detailsTitle {
+  font-size: 16px;
+  color: #1e3a8a; /* deep blue */
+  margin-bottom: 12px;
+}
+
+.detailRow {
+  display: flex;
+  justify-content: space-between;
+  padding: 8px 0;
+  border-bottom: 1px solid #dbeafe; /* light blue divider */
+}
+
+.detailLabel {
+  font-size: 14px;
+  font-weight: 600;
+  color: #666;
+}
+
+.detailValue {
+  font-size: 14px;
+  color: #333;
+  text-align: right;
+}
+
+.urlSection {
+  background: #e3f2fd;
+  padding: 20px;
+  border-radius: 8px;
+}
+
+.urlTitle {
+  font-size: 14px;
+  color: #1e3a8a;
+  margin-bottom: 12px;
+}
+
+.urlBox {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.urlInput {
+  flex: 1;
+  min-width: 200px;
+  padding: 10px;
+  font-size: 13px;
+  border: 1px solid #90caf9;
+  border-radius: 6px;
+  background: white;
+  font-family: monospace;
+}
+
+.copyButton {
+  padding: 10px 20px;
+  font-size: 14px;
+  font-weight: 600;
+  background: #1e3a8a;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.buttonGroup {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.downloadButton {
+  background: #2563eb; /* richer blue */
+}
+
+.newButton {
+  background: #3b82f6; /* lighter blue */
+}
+
+.securityBadge {
+  background: #e8f5e9;
+  color: #1e3a8a;
+  padding: 12px;
+  border-radius: 8px;
+  text-align: center;
+  font-size: 13px;
+}
+
+
+
+/* Small devices (phones, <600px) */
+@media (max-width: 599px) {
+  .card { padding: 20px; }
+  .title { font-size: 24px; }
+  .subtitle { font-size: 14px; margin-bottom: 20px; }
+  .button { font-size: 14px; padding: 12px; }
+  .detailsTitle { font-size: 14px; }
+  .detailLabel, .detailValue { font-size: 13px; }
+  .urlTitle { font-size: 13px; }
+  .urlInput { font-size: 12px; padding: 8px; }
+  .copyButton { font-size: 12px; padding: 8px 12px; }
+  .buttonGroup { grid-template-columns: 1fr; }
+}
+
+/* Medium devices (tablets, 600px–1023px) */
+@media (min-width: 600px) and (max-width: 1023px) {
+  .card { padding: 30px; max-width: 500px; }
+  .title { font-size: 28px; }
+  .subtitle { font-size: 15px; margin-bottom: 25px; }
+}
+
+/* Large devices (desktops, ≥1024px) */
+@media (min-width: 1024px) {
+  .card { max-width: 600px; }
+}

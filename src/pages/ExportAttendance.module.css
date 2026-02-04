@@ -1,0 +1,31 @@
+.container {
+  text-align: center;
+  margin-top: 30px;
+}
+
+.button {
+  padding: 12px 24px;
+  font-size: 16px;
+  background-color: #0b3d91; /* Deep blue */
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.2s, transform 0.2s;
+}
+
+.button:disabled {
+  cursor: not-allowed;
+  background-color: #555;
+}
+
+.button:hover:not(:disabled) {
+  background-color: #092b6a;
+  transform: translateY(-2px);
+}
+
+.error {
+  color: red;
+  margin-top: 10px;
+  font-size: 14px;
+}

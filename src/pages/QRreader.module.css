@@ -1,0 +1,62 @@
+.container {
+  padding: 20px;
+  max-width: 600px;
+  margin: auto;
+  font-family: sans-serif;
+}
+
+.title {
+  font-size: 24px;
+  margin-bottom: 8px;
+  text-align: center;
+}
+
+.subtitle {
+  font-size: 16px;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.scannerWrapper {
+  border: 2px solid #1e3a8a; /* deep blue border */
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.qrReader {
+  width: 100%;
+  min-height: 300px;
+}
+
+.attendeeCard {
+  margin-top: 20px;
+  padding: 15px;
+  border: 1px solid #1e3a8a; /* deep blue */
+  border-radius: 6px;
+  text-align: center;
+}
+
+.errorCard {
+  margin-top: 20px;
+  padding: 15px;
+  border: 1px solid #1e3a8a; /* deep blue */
+  border-radius: 6px;
+  color: #1e3a8a; /* text color also deep blue */
+  text-align: center;
+}
+
+/* Responsive adjustments */
+@media (max-width: 600px) {
+  .container { padding: 15px; }
+  .title { font-size: 20px; }
+  .subtitle { font-size: 14px; }
+  .qrReader { min-height: 250px; }
+  .attendeeCard, .errorCard { padding: 12px; }
+}
+
+@media (max-width: 400px) {
+  .title { font-size: 18px; }
+  .subtitle { font-size: 13px; }
+  .qrReader { min-height: 200px; }
+  .attendeeCard, .errorCard { padding: 10px; }
+}
