@@ -27,8 +27,8 @@ const QRGenerator = () => {
     if (!formData.name.trim()) return "Name is required";
     if (!formData.phoneNumber.trim()) return "Phone number is required";
     if (!/^\+\d{1,4}\d{6,14}$/.test(formData.phoneNumber.replace(/\s/g, ''))) return "Phone number must include country code (e.g., +234...) and contain only digits";
-    if (!formData.amountPaid) return "Amount paid is required";
-    if (isNaN(formData.amountPaid) || Number(formData.amountPaid) < 0) return "Invalid amount";
+    if (!formData.amount) return "Amount paid is required";
+    if (isNaN(formData.amount) || Number(formData.amountPaid) < 0) return "Invalid amount";
     return null;
   };
 
