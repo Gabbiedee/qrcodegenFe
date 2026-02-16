@@ -163,8 +163,8 @@ const QRGenerator = () => {
                   <input
                     type="radio"
                     name="attendanceMode"
-                    value="ONSITE"
-                    checked={formData.attendanceMode === 'ONSITE'}
+                    value="Onsite"
+                    checked={formData.attendanceMode === 'Onsite'}
                     onChange={handleChange}
                     style={{ width: 'auto', margin: 0 }}
                   />
@@ -174,8 +174,8 @@ const QRGenerator = () => {
                   <input
                     type="radio"
                     name="attendanceMode"
-                    value="ONLINE"
-                    checked={formData.attendanceMode === 'ONLINE'}
+                    value="Online"
+                    checked={formData.attendanceMode === 'Online'}
                     onChange={handleChange}
                     style={{ width: 'auto', margin: 0 }}
                   />
