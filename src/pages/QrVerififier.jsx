@@ -9,10 +9,37 @@ const QRReader = () => {
 
   const API_URL = import.meta.env.VITE_BASE_URL;
 
-  const handleScan = async (result) => {
-    if (!result) return;
-    const token = result?.rawValue || result?.text; 
-    await fetch(`${API_URL}/api/verify?token=${token}`);
+  const reset = () => {
+    setAttendee(null);
+    setError("");
+    setStatus("ready");
+  };
+
+  const handleScan = async (detectedCodes) => {
+    if (status !== "ready" || !detectedCodes || detectedCodes.length === 0) return;
+
+    const code = detectedCodes[0];
+    const token = code.rawValue;
+
+    if (!token) return;
+
+    setStatus("verifying");
+
+    try {
+      const response = await fetch(`${API_URL}/api/verify?token=${token}`);
+      const data = await response.json();
+
+      if (response.ok) {
+        setAttendee(data);
+        setStatus("success");
+      } else {
+        throw new Error(data.message || "Verification failed");
+      }
+    } catch (err) {
+      console.error(err);
+      setError(err.message || "Verification failed");
+      setStatus("error");
+    }
   };
 
   return (
@@ -32,12 +59,13 @@ const QRReader = () => {
           }}
           constraints={{ facingMode: "environment" }}
           scanDelay={300}
-          components={{ finder: true }} 
+          paused={status !== "ready"}
+          components={{ finder: true }}
           styles={{ video: { width: "100%", height: "100%", objectFit: "cover" } }}
         />
       </div>
 
-{status === "success" && attendee && (
+      {status === "success" && attendee && (
         <div className={styles.attendeeCard}>
           <h3>✅ Verified Attendee</h3>
           <p><strong>Name:</strong> {attendee.name}</p>
