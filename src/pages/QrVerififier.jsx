@@ -4,6 +4,7 @@ import styles from "./QRreader.module.css";
 
 const QRReader = () => {
   const [attendee, setAttendee] = useState(null);
+  const [verificationMessage, setVerificationMessage] = useState("");
   const [error, setError] = useState("");
   const [status, setStatus] = useState("ready");
 
@@ -11,6 +12,7 @@ const QRReader = () => {
 
   const reset = () => {
     setAttendee(null);
+    setVerificationMessage("");
     setError("");
     setStatus("ready");
   };
@@ -49,11 +51,12 @@ const QRReader = () => {
       const response = await fetch(`${API_URL}/api/verify?token=${token}`);
       const data = await response.json();
 
-      if (response.ok) {
-        setAttendee(data);
+      if (response.ok && data.success) {
+        setAttendee(data.attendee);
+        setVerificationMessage(data.message);
         setStatus("success");
       } else {
-        throw new Error(data.message || "Verification failed");
+        throw new Error(data.error || data.message || "Verification failed");
       }
     } catch (err) {
       console.error(err);
@@ -87,10 +90,12 @@ const QRReader = () => {
 
       {status === "success" && attendee && (
         <div className={styles.attendeeCard}>
-          <h3>✅ Verified Attendee</h3>
+          <h3>✅ {verificationMessage || "Verified Attendee"}</h3>
           <p><strong>Name:</strong> {attendee.name}</p>
-          <p><strong>Email:</strong> {attendee.email}</p>
-          <p><strong>Event:</strong> {attendee.eventName}</p>
+          {attendee.email && <p><strong>Email:</strong> {attendee.email}</p>}
+          <p><strong>Phone:</strong> {attendee.phoneNumber}</p>
+          {attendee.amount && <p><strong>Amount Paid:</strong> {attendee.amount}</p>}
+          {attendee.eventName && <p><strong>Event:</strong> {attendee.eventName}</p>}
           {attendee.ticketType && <p><strong>Type:</strong> {attendee.ticketType}</p>}
         </div>
       )}
