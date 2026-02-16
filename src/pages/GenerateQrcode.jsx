@@ -7,7 +7,7 @@ const QRGenerator = () => {
     phoneNumber: '',
     email: '',
     amount: '',
-    modeOfAttendance: 'ONSITE'
+    modeOfAttendance: 'Onsite'
   });
 
   const API_URL = import.meta.env.VITE_BASE_URL;
@@ -69,7 +69,7 @@ const QRGenerator = () => {
   };
 
   const resetForm = () => {
-    setFormData({ name: '', email: '', phoneNumber: '', amountPaid: '', attendanceMode: 'ONSITE' });
+    setFormData({ name: '', email: '', phoneNumber: '', amountPaid: '', attendanceMode: 'Onsite' });
     setResult(null);
     setError('');
   };
