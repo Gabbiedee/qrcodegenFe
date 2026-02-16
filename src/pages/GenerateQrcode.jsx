@@ -218,14 +218,44 @@ const QRGenerator = () => {
             {/* Attendee Details */}
             <div className={styles.details}>
               <h3 className={styles.detailsTitle}>Attendee Details</h3>
-              {Object.entries(result.attendeeDetails).map(([key, value]) => value && (
-                <div key={key} className={styles.detailRow}>
-                  <span className={styles.detailLabel}>
-                    {key.charAt(0).toUpperCase() + key.slice(1)}:
-                  </span>
-                  <span className={styles.detailValue}>{value}</span>
+
+              <div className={styles.detailRow}>
+                <span className={styles.detailLabel}>Name:</span>
+                <span className={styles.detailValue}>{result.attendeeDetails.name}</span>
+              </div>
+
+              {result.attendeeDetails.email && (
+                <div className={styles.detailRow}>
+                  <span className={styles.detailLabel}>Email:</span>
+                  <span className={styles.detailValue}>{result.attendeeDetails.email}</span>
                 </div>
-              ))}
+              )}
+
+              <div className={styles.detailRow}>
+                <span className={styles.detailLabel}>Phone:</span>
+                <span className={styles.detailValue}>{result.attendeeDetails.phoneNumber}</span>
+              </div>
+
+              {result.attendeeDetails.amount && (
+                <div className={styles.detailRow}>
+                  <span className={styles.detailLabel}>Amount Paid:</span>
+                  <span className={styles.detailValue}>₦{Number(result.attendeeDetails.amount).toLocaleString()}</span>
+                </div>
+              )}
+
+              {result.attendeeDetails.modeOfAttendance && (
+                <div className={styles.detailRow}>
+                  <span className={styles.detailLabel}>Attendance:</span>
+                  <span className={styles.detailValue}>{result.attendeeDetails.modeOfAttendance}</span>
+                </div>
+              )}
+
+              {result.attendeeDetails.ticketType && (
+                <div className={styles.detailRow}>
+                  <span className={styles.detailLabel}>Ticket Type:</span>
+                  <span className={styles.detailValue}>{result.attendeeDetails.ticketType}</span>
+                </div>
+              )}
             </div>
 
             {/* Verification URL */}
