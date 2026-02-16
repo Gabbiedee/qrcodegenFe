@@ -16,14 +16,34 @@ const QRReader = () => {
   };
 
   const handleScan = async (detectedCodes) => {
+    console.log("Detected codes:", detectedCodes);
     if (status !== "ready" || !detectedCodes || detectedCodes.length === 0) return;
 
     const code = detectedCodes[0];
-    const token = code.rawValue;
+    let token = code.rawValue;
+
+    console.log("Raw Scanned Value:", token);
+
+    // Attempt to extract token if the scanned value is a URL
+    try {
+      if (token.includes("http") || token.includes("://")) {
+        const urlObj = new URL(token);
+        const extractedToken = urlObj.searchParams.get("token");
+        if (extractedToken) {
+          token = extractedToken;
+          console.log("Extracted Token from URL:", token);
+        }
+      }
+    } catch (e) {
+      console.log("Scanned value is not a valid URL, using raw value.");
+    }
+
+    console.log("Final Token to Verify:", token);
 
     if (!token) return;
 
     setStatus("verifying");
+    console.log(`Verifying with URL: ${API_URL}/api/verify?token=${token}`);
 
     try {
       const response = await fetch(`${API_URL}/api/verify?token=${token}`);
