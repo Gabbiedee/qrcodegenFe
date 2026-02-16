@@ -53,6 +53,7 @@ const QRGenerator = () => {
       });
 
       const data = await response.json();
+      console.log("QR Generation Response:", data);
 
       if (data.success) {
         setResult(data.data);
