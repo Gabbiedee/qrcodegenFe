@@ -4,10 +4,10 @@ import styles from './QRgenerator.module.css';
 const QRGenerator = () => {
   const [formData, setFormData] = useState({
     name: '',
-    email: '',
     phoneNumber: '',
-    amountPaid: '',
-    attendanceMode: 'ONSITE'
+    email: '',
+    amount: '',
+    modeOfAttendance: 'ONSITE'
   });
 
   const API_URL = import.meta.env.VITE_BASE_URL;
