@@ -5,11 +5,13 @@ const QRGenerator = () => {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
-    phoneNumber: ''
+    phoneNumber: '',
+    amountPaid: '',
+    attendanceMode: 'ONSITE'
   });
 
   const API_URL = import.meta.env.VITE_BASE_URL;
-  
+
   const [result, setResult] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
@@ -21,8 +23,24 @@ const QRGenerator = () => {
     });
   };
 
+  const validateForm = () => {
+    if (!formData.name.trim()) return "Name is required";
+    if (!formData.phoneNumber.trim()) return "Phone number is required";
+    if (!/^\+\d{1,4}\d{6,14}$/.test(formData.phoneNumber.replace(/\s/g, ''))) return "Phone number must include country code (e.g., +234...) and contain only digits";
+    if (!formData.amountPaid) return "Amount paid is required";
+    if (isNaN(formData.amountPaid) || Number(formData.amountPaid) < 0) return "Invalid amount";
+    return null;
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    const validationError = validateForm();
+    if (validationError) {
+      setError(validationError);
+      return;
+    }
+
     setLoading(true);
     setError('');
     setResult(null);
@@ -50,7 +68,7 @@ const QRGenerator = () => {
   };
 
   const resetForm = () => {
-    setFormData({ name: '', email: '', phoneNumber: '' });
+    setFormData({ name: '', email: '', phoneNumber: '', amountPaid: '', attendanceMode: 'ONSITE' });
     setResult(null);
     setError('');
   };
@@ -74,28 +92,99 @@ const QRGenerator = () => {
 
         {!result ? (
           <form onSubmit={handleSubmit} className={styles.form}>
-            {['name', 'email', 'phoneNumber'].map((field) => (
-              <div key={field} className={styles.formGroup}>
-                <label className={styles.label}>
-                  {field === 'name' ? 'Full Name' :
-                   field === 'email' ? 'Email Address' : 'Phone Number'}
-                  {field === 'name' || field === 'email' ? <span className={styles.required}>*</span> : null}
-                </label>
-                <input
-                  type={field === 'email' ? 'email' : 'text'}
-                  name={field}
-                  value={formData[field]}
-                  onChange={handleChange}
-                  required={field === 'name' || field === 'email'}
-                  placeholder={field === 'name' ? 'John Doe' :
-                               field === 'email' ? 'john@example.com' : '+234 800 000 0000'}
-                  className={styles.input}
-                />
-              </div>
-            ))}
+            <div className={styles.formGroup}>
+              <label className={styles.label}>
+                Full Name <span className={styles.required}>*</span>
+              </label>
+              <input
+                type="text"
+                name="name"
+                value={formData.name}
+                onChange={handleChange}
+                required
+                placeholder="John Doe"
+                className={styles.input}
+              />
+            </div>
 
-            <button 
-              type="submit" 
+            <div className={styles.formGroup}>
+              <label className={styles.label}>Email Address</label>
+              <input
+                type="email"
+                name="email"
+                value={formData.email}
+                onChange={handleChange}
+                placeholder="john@example.com"
+                className={styles.input}
+              />
+            </div>
+
+            <div className={styles.formGroup}>
+              <label className={styles.label}>
+                Phone Number <span className={styles.required}>*</span>
+              </label>
+              <input
+                type="text"
+                name="phoneNumber"
+                value={formData.phoneNumber}
+                onChange={handleChange}
+                required
+                placeholder="+234 800 000 0000"
+                className={styles.input}
+              />
+              <small style={{ display: 'block', marginTop: '4px', color: '#666', fontSize: '0.8em' }}>
+                Include country code (e.g., +1, +234)
+              </small>
+            </div>
+
+            <div className={styles.formGroup}>
+              <label className={styles.label}>
+                Amount Paid <span className={styles.required}>*</span>
+              </label>
+              <input
+                type="number"
+                name="amountPaid"
+                value={formData.amountPaid}
+                onChange={handleChange}
+                required
+                placeholder="0.00"
+                min="0"
+                className={styles.input}
+              />
+            </div>
+
+            <div className={styles.formGroup}>
+              <label className={styles.label}>
+                Attendance Mode <span className={styles.required}>*</span>
+              </label>
+              <div style={{ display: 'flex', gap: '20px', marginTop: '8px' }}>
+                <label style={{ display: 'flex', alignItems: 'center', cursor: 'pointer', gap: '8px' }}>
+                  <input
+                    type="radio"
+                    name="attendanceMode"
+                    value="ONSITE"
+                    checked={formData.attendanceMode === 'ONSITE'}
+                    onChange={handleChange}
+                    style={{ width: 'auto', margin: 0 }}
+                  />
+                  On-site
+                </label>
+                <label style={{ display: 'flex', alignItems: 'center', cursor: 'pointer', gap: '8px' }}>
+                  <input
+                    type="radio"
+                    name="attendanceMode"
+                    value="ONLINE"
+                    checked={formData.attendanceMode === 'ONLINE'}
+                    onChange={handleChange}
+                    style={{ width: 'auto', margin: 0 }}
+                  />
+                  Online
+                </label>
+              </div>
+            </div>
+
+            <button
+              type="submit"
               disabled={loading}
               className={`${styles.button} ${loading ? styles.buttonDisabled : ''}`}
             >
@@ -151,9 +240,9 @@ const QRGenerator = () => {
 
             {/* Buttons */}
             <div className={styles.buttonGroup}>
-              <a 
-                href={result.qrCode} 
-                download={`qr-code-${result.attendeeDetails.name.replace(/\s+/g, '-')}.png`} 
+              <a
+                href={result.qrCode}
+                download={`qr-code-${result.attendeeDetails.name.replace(/\s+/g, '-')}.png`}
                 className={`${styles.button} ${styles.downloadButton}`}
               >
                 Download QR Code
