@@ -1,6 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import styles from './Home.module.css'; 
+import styles from './Home.module.css';
 
 export default function Home() {
   const navigate = useNavigate();
@@ -15,7 +15,7 @@ export default function Home() {
           <button className={styles.button} onClick={() => navigate('/generate')}>
             Generate / Send QR
           </button>
-          <button className={styles.button} onClick={() => navigate('/verify')}>
+          <button className={styles.button} onClick={() => navigate('/scan')}>
             Verify QR
           </button>
           <button className={styles.button} onClick={() => navigate('/export')}>
