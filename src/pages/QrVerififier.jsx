@@ -48,7 +48,7 @@ const QRReader = () => {
     console.log(`Verifying with URL: ${API_URL}/api/verify?token=${token}`);
 
     try {
-      const response = await fetch(`${API_URL}/api/verify?token=${token}`);
+      const response = await fetch(`${API_URL}/api/verify?token=${token}&source=app`);
       const data = await response.json();
 
       if (response.ok && data.success) {
